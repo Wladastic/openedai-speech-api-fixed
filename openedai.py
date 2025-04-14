@@ -146,15 +146,15 @@ class OpenAIStub(FastAPI):
         async def health():
             return {"status": "ok" if self.models else "unk" }
 
-        @self.get("/v1/models")
+        @self.get("/v1/audio/models")
         async def get_model_list():
             return self.model_list()
 
-        @self.get("/v1/models/{model}")
+        @self.get("/v1/audio/models/{model}")
         async def get_model_info(model_id: str):
             return self.model_info(model_id)
 
-        @self.get("/v1/voices")
+        @self.get("/v1/audio/voices")
         async def get_voices():
             try:
                 with open('config/voice_to_speaker.yaml', 'r', encoding='utf8') as file:
