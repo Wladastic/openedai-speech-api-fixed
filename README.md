@@ -300,6 +300,42 @@ python audio_reader.py -s 2 < LICENSE # read the software license - fast
 * [OpenAI Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech)
 * [OpenAI API Reference](https://platform.openai.com/docs/api-reference/audio/createSpeech)
 
+## Available Voices Endpoint
+
+The `/v1/voices` endpoint allows you to retrieve the available voices and TTS models. This endpoint reads the `config/voice_to_speaker.yaml` file and returns the available voices and TTS models in JSON format.
+
+### Example Request
+
+```shell
+curl http://localhost:8000/v1/voices
+```
+
+### Example Response
+
+```json
+{
+  "tts-1": {
+    "alloy": {
+      "model": "voices/en_US-alloy.onnx",
+      "language": "en"
+    },
+    "echo": {
+      "model": "voices/en_US-echo.onnx",
+      "language": "en"
+    }
+  },
+  "tts-1-hd": {
+    "alloy": {
+      "model": "xtts",
+      "language": "en"
+    },
+    "echo": {
+      "model": "xtts",
+      "language": "en"
+    }
+  }
+}
+```
 
 ## Custom Voices Howto
 

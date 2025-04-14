@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse, JSONResponse
 from loguru import logger
+import yaml
 
 class OpenAIError(Exception):
     pass
@@ -152,6 +153,15 @@ class OpenAIStub(FastAPI):
         @self.get("/v1/models/{model}")
         async def get_model_info(model_id: str):
             return self.model_info(model_id)
+
+        @self.get("/v1/voices")
+        async def get_voices():
+            try:
+                with open('config/voice_to_speaker.yaml', 'r', encoding='utf8') as file:
+                    voice_map = yaml.safe_load(file)
+                return voice_map
+            except Exception as e:
+                raise InternalServerError(f"Error reading voice_to_speaker.yaml: {str(e)}")
 
     def register_model(self, name: str, model: str = None) -> None:
         self.models[name] = model if model else name
